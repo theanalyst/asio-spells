@@ -64,12 +64,12 @@ int main(int argc, char *argv[])
     resolve_request(asio_resolver, argv[1], port);
     async_resolve_request(asio_resolver, argv[1], port);
 
-    // boost::asio::spawn(ioc, std::bind(
-    // 			   &coro_resolve_request,
-    // 			   asio_resolver,
-    // 			   argv[1],
-    // 			   port,
-    // 			   std::placeholders::_1));
+    boost::asio::spawn(ioc, std::bind(
+    			   &coro_resolve_request,
+    			   std::ref(asio_resolver),
+    			   argv[1],
+    			   port,
+    			   std::placeholders::_1));
     ioc.run();
     
 }
